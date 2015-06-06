@@ -110,7 +110,7 @@ makeTree ns = let ss = sortBy (\n m -> compare (getVal n) (getVal m)) ns;
                   (n1, n2) = (\[a,b] -> (a,b)) $ take 2 ss;
                   newNode = (Node (getVal n1 + getVal n2) n1 n2);
               in makeTree (newNode: drop 2 ss)
-assignCodes    str rs (Leaf _ v) = (v, reverse str):rs
+assignCodes str rs (Leaf _ v) = (v, reverse str):rs
 assignCodes str rs (Node _ hl hr) = assignCodes ('0':str) (assignCodes ('1':str) rs hr) hl
 reSort xs rs = map (\(x,_) -> head $ filter ((==x). fst) rs) xs
          
