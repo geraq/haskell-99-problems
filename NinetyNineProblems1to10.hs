@@ -20,8 +20,8 @@ myButLast' e (x:xs) = myButLast' x xs
 elementAt _ 0 = error "index is 1-based"
 elementAt [] _ = error "empty list"
 elementAt (x:xs) k | k == 1 = x
-				   | otherwise = elementAt xs (k - 1)
-				   
+                   | otherwise = elementAt xs (k - 1)
+                   
 -- Problem 4 (length)
 -- myLength = foldl (\ n _ -> n + 1) 0 (or just "length")
 -- myLength [] = 0
@@ -29,21 +29,21 @@ elementAt (x:xs) k | k == 1 = x
 myLength = myLength' 0
 myLength' e [] = e
 myLength' e (x:xs) = myLength' (e + 1) xs
-				   
+                   
 -- Problem 5 (reverse)
--- myReverse = foldl (flip (:)) [] (or just "reverse") 				   
+-- myReverse = foldl (flip (:)) [] (or just "reverse")                    
 myReverse = myReverse' []
 myReverse' ys [] = ys
 myReverse' ys (x:xs) = myReverse' (x:ys) xs
-				   
--- Problem 6 (isPalindrome)		
+                   
+-- Problem 6 (isPalindrome)        
 -- isPalindrome xs = xs == reverse xs
 isPalindrome xs = isPalindrome' xs xs []
 isPalindrome' xs [] zs = isPalindrome'' xs zs
 isPalindrome' xs (y:ys) zs = isPalindrome' xs ys (y:zs)
 isPalindrome'' [] [] = True
 isPalindrome'' (x:xs) (y:ys) | x == y = isPalindrome'' xs ys
-						     | otherwise = False
+                             | otherwise = False
 
 -- Problem 7 (flatten a nested list)
 data NestedList a = Elem a | List [NestedList a]
@@ -67,7 +67,7 @@ compress [] = []
 compress (x:xs) = x : compress' x xs
 compress' _ [] = []
 compress' h (x:xs) | h == x = compress' h xs
-				   | otherwise = x : compress' x xs
+                   | otherwise = x : compress' x xs
 
 -- Problem 9 (pack duplicates in separate lists) (it's "group")
 -- pack [] = []
@@ -76,7 +76,7 @@ pack [] = []
 pack (x:xs) = pack' [x] xs
 pack' ys [] = [ys]
 pack' ys (x:xs) | head ys == x = pack' (x:ys) xs
-				| otherwise = ys : pack' [x] xs
+                | otherwise = ys : pack' [x] xs
 
 -- Problem 10 (run-length encoding of a list) (it's "group" and "map length")
 
@@ -84,5 +84,5 @@ encode xs = map (\xs -> (length xs, head xs)) $ pack xs
 --encode = (map (\xs -> (length xs, head xs))) . pack -- Unresolved top-level overloading??
 
 
-		   
-				   
+           
+                   

@@ -12,7 +12,7 @@ data Element a = Single a | Multiple Int a deriving Show
 
 encodeModified xs = map transform $ encode xs
 transform (n, e) | n == 1 = Single e
-			     | otherwise = Multiple n e
+                 | otherwise = Multiple n e
 
 -- Problem 12 (decode run-length list)
 {-P12> decodeModified  [Multiple 4 'a',Single 'b',Multiple 2 'c', Multiple 2 'a',Single 'd',Multiple 4 'e']
@@ -20,9 +20,9 @@ transform (n, e) | n == 1 = Single e
 -}
 
 decodeModified = concatMap decode'
-				 where decode' (Single e) = [e];
-					   decode' (Multiple n e) = replicate n e
-					
+                 where decode' (Single e) = [e];
+                       decode' (Multiple n e) = replicate n e
+                    
 -- Problem 13 (Run-length encoding of a list (direct solution).)
 -- Same as 11 ?????
 {-
@@ -84,14 +84,14 @@ slice xs i j = take (j - i + 1) $ drop (i - 1) xs
 "ghabcdef"
 -}
 rotate xs n | n > 0 = drop n xs ++ take n xs
-			| n < 0 = drop (t + n) xs ++ take (t + n) xs
-			| otherwise = xs
-			where t = length xs
-			
+            | n < 0 = drop (t + n) xs ++ take (t + n) xs
+            | otherwise = xs
+            where t = length xs
+            
 -- Problem 20
 {-
 *Main> removeAt 2 "abcd"
 ('b',"acd")
--}			
-			
+-}            
+            
 removeAt n xs = (\ xs -> (fst . head . filter ((==n) . snd) $ xs, map fst $ filter ((/=n) . snd) $ xs)) $ zip xs [1..]

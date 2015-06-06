@@ -17,8 +17,8 @@ Prelude> range 4 9
 -}
 
 range i j | i > j = []
-		  | i == j = [j]
-		  | otherwise = i : range (i + 1) j
+          | i == j = [j]
+          | otherwise = i : range (i + 1) j
 
 -- Problem 23
 {-
@@ -27,12 +27,12 @@ eda
 -}
 
 rnd_select xs n = do 
-					let m = length xs;
-					indexes <- sequence (take n $ map (\x -> randomRIO (0,x) :: IO Int) [m-1, m-2..0])					
-					let output = reverse $ fst $ foldl (\ (rs, es) i -> let (e, rest) = takeElement i es in (e:rs, rest)) ([], xs) indexes;
-						takeElement i es = (es !! i, map snd $ filter ((/= i) . fst) $ zip [0..] es);							
-					print output
-					
+                    let m = length xs;
+                    indexes <- sequence (take n $ map (\x -> randomRIO (0,x) :: IO Int) [m-1, m-2..0])                    
+                    let output = reverse $ fst $ foldl (\ (rs, es) i -> let (e, rest) = takeElement i es in (e:rs, rest)) ([], xs) indexes;
+                        takeElement i es = (es !! i, map snd $ filter ((/= i) . fst) $ zip [0..] es);                            
+                    print output
+                    
 -- Problem 24
 {-
 Prelude System.Random>diff_select 6 49
@@ -87,10 +87,10 @@ lfsort ["abc", "de", "fgh", "de", "ijkl", "mn", "o"]
 lsort xss = map snd $ sortBy (\(l1,_) (l2,_) -> compare l1 l2) $ map (\ xs -> (length xs, xs)) xss
 
 lfsort xss = map (\(_,_,xs) -> xs) $ sortBy (\(lf1,_,_) (lf2,_,_) -> compare lf1 lf2) $ lenFreqs
-				where input = map (\ xs -> (length xs, xs)) xss;					  
-					  lenFreqs = map (\(l,xs) -> (length $ filter ((==l) . fst) input, l, xs)) input
+                where input = map (\ xs -> (length xs, xs)) xss;                      
+                      lenFreqs = map (\(l,xs) -> (length $ filter ((==l) . fst) input, l, xs)) input
 
-					  
-					  
-					  
-					  
+                      
+                      
+                      
+                      
