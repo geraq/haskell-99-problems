@@ -53,12 +53,9 @@ permu xs = rnd_select xs (length xs)
 ["abc","abd","abe",...]
 -}
 
-combinations n xs = concat $ filter (not . null) $ combinations' n xs
-combinations' n [] = []
-combinations' n l@(x:xs) = (makeList n l): combinations' n xs
-makeList _ [] = []
-makeList 1 xs = map (\x -> [x]) xs
-makeList n (x:xs) = map (x:) (makeList (n-1) xs)
+combinations _ [] = []
+combinations 1 xs = map (\x -> [x]) xs
+combinations n (x:xs) = (map (x:) (combinations (n-1) xs)) ++ combinations n xs
 
 -- Problem 27
 {-
@@ -71,8 +68,23 @@ P27> group [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","id
 (altogether 756 solutions)
 -}
 
---group ns xs = ?
+{-
+myGroup [2,3,4] ["aldo","beat","carla","david","evi","flip","gary","hugo","ida"]
+-}
 
+myGroup [] xs = []
+myGroup [n] xs = map (\ comb -> [comb]) $ combinations n xs
+myGroup (n:ns) xs = let combs = combinations n xs;
+                        remainders = map (\ls -> filter (\ x -> not $ elem x ls) xs) combs;
+                        pairs = zip combs remainders                    
+                    in concatMap (\(comb, remainder) -> map (comb :) (myGroup ns remainder)) pairs                    
+                    
+printGroup ns xs = do
+                        let rs = myGroup ns xs;
+                            output = map (('\n':) . show) rs;
+                            path = "combinations_group.txt"
+                        --putStrLn (tail $ concat output)
+                        writeFile path (tail $ concat output)
 -- Problem 28
 {-
 a)
